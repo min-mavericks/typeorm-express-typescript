@@ -7,7 +7,6 @@ export const setupDataSource = async (): Promise<void> => {
   try {
     if (!appDataSource) {
       appDataSource = await new DataSource(config);
-      console.log(config);
       await appDataSource.initialize();
       console.log('data source has been initialized');
     }

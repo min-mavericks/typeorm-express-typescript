@@ -1,4 +1,4 @@
-import { DataSource, EntityManager } from 'typeorm';
+import { DataSource, EntityManager, EntityTarget, Repository } from 'typeorm';
 import config from './config/ormconfig';
 
 let appDataSource: DataSource | null = null;
@@ -19,5 +19,15 @@ export const getEntityManager = (): EntityManager | null => {
   if (appDataSource) {
     return appDataSource.manager;
   }
+  return null;
+};
+
+export const getRepository = <T>(entity: EntityTarget<T>): Repository<T> | null => {
+  const entityManager = appDataSource.manager;
+
+  if (entityManager) {
+    return entityManager.getRepository(entity);
+  }
+
   return null;
 };
